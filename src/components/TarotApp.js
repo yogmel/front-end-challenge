@@ -7,7 +7,7 @@ class TarotApp extends Component {
         cartas: []
     }
 
-    componentDidMount(){
+    componentDidMount() {
         try {
             this.retrieveCards();
         } catch (e) {
@@ -20,14 +20,15 @@ class TarotApp extends Component {
         xhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
                 console.log(this.responseText);
+                this.createCards(this.responseText);
             }
         };
         xhttp.open("GET", "https://raw.githubusercontent.com/yogmel/front-end-challenge/master/tarot.json", true);
         xhttp.send();
     }
 
-    createCards = () => {
-
+    createCards = (cards) => {
+        console.log(cards)
     }
 
     render() {
