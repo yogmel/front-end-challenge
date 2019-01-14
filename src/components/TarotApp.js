@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Cards from './Cards';
+import axios from 'axios';
 
 class TarotApp extends Component {
     state = {
@@ -9,6 +10,7 @@ class TarotApp extends Component {
 
     componentDidMount() {
         try {
+            console.log('app iniciado')
             this.retrieveCards();
         } catch (e) {
             console.log(e);
@@ -16,15 +18,14 @@ class TarotApp extends Component {
     }
 
     retrieveCards = () => {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                console.log(this.responseText);
-                this.createCards(this.responseText);
-            }
-        };
-        xhttp.open("GET", "https://raw.githubusercontent.com/yogmel/front-end-challenge/master/tarot.json", true);
-        xhttp.send();
+        axios.get("https://raw.githubusercontent.com/yogmel/front-end-challenge/master/tarot.json")
+            .then((res) => {
+                console.log(res.data.cards)
+                this.createCards(res.data)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
     }
 
     createCards = (cards) => {
