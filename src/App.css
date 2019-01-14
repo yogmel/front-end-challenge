@@ -2,11 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,11 +17,25 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.hide {
+    display: none;
+}
+
+.cards__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.card__box {
+    margin-left: -70px;
+    margin-bottom: 30px;
+}
+
+.card__box img {
+    box-shadow: -3px 2px 9px rgba(0,0,0,.2);
+    max-height: 240px;
 }

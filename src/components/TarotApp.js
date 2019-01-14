@@ -35,14 +35,14 @@ class TarotApp extends Component {
     createCards = (cards) => {
         console.log(cards)
         return (
-            <ul>
+            <div className="cards__container">
                 {this.state.cards.map( cards =>
-                    <div>
-                        <img src={this.state.imgBackUrl}></img>
-                        <img src={this.state.imgFrontUrl + cards.image}></img>
+                    <div className="card__box">
+                        <img src={this.state.imgBackUrl} className="card card__back hide"></img>
+                        <img src={this.state.imgFrontUrl + cards.image} className="card card__front"></img>
                     </div>
                 )}
-            </ul>
+            </div>
         )
     }
 
