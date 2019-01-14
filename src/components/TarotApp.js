@@ -5,7 +5,9 @@ import axios from 'axios';
 
 class TarotApp extends Component {
     state = {
-        cartas: []
+        cards: [],
+        imgFrontUrl: '',
+        imgBackUrl: ''
     }
 
     componentDidMount() {
@@ -20,8 +22,10 @@ class TarotApp extends Component {
     retrieveCards = () => {
         axios.get("https://raw.githubusercontent.com/yogmel/front-end-challenge/master/tarot.json")
             .then((res) => {
-                console.log(res.data.cards)
-                this.createCards(res.data)
+                const imgFrontUrl = res.data.imagesUrl;
+                const imgBackUrl = res.data.imageBackCard;
+                const cards = res.data.cards.map( obj => obj );
+                this.setState({ cards, imgFrontUrl, imgBackUrl });
             })
             .catch((e) => {
                 console.log(e)
@@ -30,6 +34,16 @@ class TarotApp extends Component {
 
     createCards = (cards) => {
         console.log(cards)
+        return (
+            <ul>
+                {this.state.cards.map( cards =>
+                    <div>
+                        <img src={this.state.imgBackUrl}></img>
+                        <img src={this.state.imgFrontUrl + cards.image}></img>
+                    </div>
+                )}
+            </ul>
+        )
     }
 
     render() {
@@ -37,6 +51,7 @@ class TarotApp extends Component {
         <div className="App">
             <Header />
             <Cards />
+            {this.createCards()}
         </div>
     );
     }
