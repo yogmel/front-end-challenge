@@ -33,9 +33,16 @@
 .card__box {
     margin-left: -70px;
     margin-bottom: 30px;
+    cursor: pointer;
+    transition: all .5s ease;
 }
 
 .card__box img {
     box-shadow: -3px 2px 9px rgba(0,0,0,.2);
     max-height: 240px;
+}
+
+
+.card__box:hover {
+    transform: translateY(-50px);
 }

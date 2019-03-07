@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Cards from './Cards';
+import ModalCard from './ModalCard';
+import ShuffleButton from './ShuffleButton';
 import axios from 'axios';
 
 class TarotApp extends Component {
     state = {
         cards: [],
+        selectedCard: undefined,
         imgFrontUrl: '',
-        imgBackUrl: ''
+        imgBackUrl: '',
+        backCardShow: false
     }
 
     componentDidMount() {
@@ -32,26 +36,38 @@ class TarotApp extends Component {
             })
     }
 
-    createCards = (cards) => {
-        console.log(cards)
-        return (
-            <div className="cards__container">
-                {this.state.cards.map( cards =>
-                    <div className="card__box">
-                        <img src={this.state.imgBackUrl} className="card card__back hide"></img>
-                        <img src={this.state.imgFrontUrl + cards.image} className="card card__front"></img>
-                    </div>
-                )}
-            </div>
-        )
+    handleBegin = () => {
+        this.setState( () => ({ backCardShow: true }) );
+    }
+
+    handleClickCard = (cardToSee) => {
+        console.log('card clicked' + cardToSee);
+        this.setState(() => ({ selectedCard: cardToSee }))
+        console.log(this.state.selectedCard)
+    }
+
+    handleModalClose = () => {
+        this.setState(() => ({selectedCard: undefined}))
     }
 
     render() {
     return (
         <div className="App">
             <Header />
-            <Cards />
-            {this.createCards()}
+            <Cards
+                cards={this.state.cards}
+                imgBackUrl={this.state.imgBackUrl}
+                imgFrontUrl={this.state.imgFrontUrl}
+                backCardShow={this.state.backCardShow}
+                handleClickCard={this.handleClickCard}
+            />
+            <ShuffleButton handleClick={this.handleBegin} />
+
+            <ModalCard
+                imgFrontUrl={this.state.imgFrontUrl}
+                selectedCard={this.state.selectedCard}
+                handleModalClose={this.handleModalClose}
+            />
         </div>
     );
     }
